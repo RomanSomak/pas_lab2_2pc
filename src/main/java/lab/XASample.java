@@ -86,21 +86,17 @@ public class XASample {
             xaconn2 = hotelDataSource.getXAConnection();
             xaconn3 = amountDataSource.getXAConnection();
 
-
             conn1 = xaconn1.getConnection();
             conn2 = xaconn2.getConnection();
             conn3 = xaconn3.getConnection();
-
 
             xares1 = xaconn1.getXAResource();
             xares2 = xaconn2.getXAResource();
             xares3 = xaconn3.getXAResource();
 
-
             javax.transaction.xa.Xid xid1 = this.new XID(100, gtrid, bqual);
             javax.transaction.xa.Xid xid2 = this.new XID(100, gtrid2, bqual2);
             javax.transaction.xa.Xid xid3 = this.new XID(100, gtrid3, bqual3);
-
 
             xares1.start(xid1, javax.transaction.xa.XAResource.TMNOFLAGS);
             xares2.start(xid2, javax.transaction.xa.XAResource.TMNOFLAGS);
@@ -109,14 +105,14 @@ public class XASample {
 
             String insertFlyQuery = "INSERT INTO fly_booking.fly_booking" +
                     "(id, client_name, fly_number, fly_from, fly_to, date) " +
-                    "VALUES (3, 'ROMAN', 'BIRD 1', 'HERE', 'THERE', '01/01/2000')";
+                    "VALUES (6, 'ROMAN', 'BIRD 1', 'HERE', 'THERE', '01/01/2000')";
 
             Statement statement1 = conn1.createStatement();
             statement1.execute(insertFlyQuery);
 
             String insertHotelQuery = "INSERT INTO hotel_booking.hotel_booking" +
                     "(id, client_name, hotel_name, arrival, departure) " +
-                    "VALUES (3, 'ROMAN', 'MIR', '01/01/2000', '07/01/2000')";
+                    "VALUES (6, 'ROMAN', 'MIR', '01/01/2000', '07/01/2000')";
 
             Statement statement2 = conn2.createStatement();
             statement2.execute(insertHotelQuery);
@@ -131,7 +127,6 @@ public class XASample {
             xares1.end(xid1, javax.transaction.xa.XAResource.TMSUCCESS);
             xares2.end(xid2, javax.transaction.xa.XAResource.TMSUCCESS);
             xares3.end(xid3, javax.transaction.xa.XAResource.TMSUCCESS);
-
 
             try {
                 rc1 = xares1.prepare(xid1);
